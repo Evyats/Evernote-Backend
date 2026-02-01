@@ -1,13 +1,13 @@
 from datetime import UTC, datetime
 from tabulate import tabulate
 from src.auth import pass_hash, jwt
-from src import config
+from src.core import config
 from sqlalchemy import create_engine, text
 
 
 
 
-settings = config.getSettings()
+settings = config.get_settings()
 engine = create_engine(settings.DATABASE_URL, echo=False)
 
 

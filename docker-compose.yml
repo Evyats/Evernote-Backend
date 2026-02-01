@@ -1,7 +1,8 @@
 services:
   db:
     image: postgres:16
-    container_name: postgres_container
+    # preferably comment this so that docker can auto generate a name
+    # container_name: postgres_container
     environment:
       POSTGRES_USER: postgres_username
       POSTGRES_PASSWORD: postgres_password

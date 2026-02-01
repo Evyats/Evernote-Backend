@@ -7,7 +7,7 @@ class Settings:
     PORT: str
     DATABASE_URL: str
 
-def getSettings():
+def get_settings():
     settings = Settings()
     settings.PORT = os.getenv("PORT", default="missing_env_var")
     settings.DATABASE_URL = os.getenv("DATABASE_URL", default="missing_env_var")
@@ -15,5 +15,5 @@ def getSettings():
 
 if __name__ == "__main__":
     pass
-    settings = getSettings()
+    settings = get_settings()
     print(settings.DATABASE_URL)

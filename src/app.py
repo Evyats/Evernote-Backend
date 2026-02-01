@@ -1,31 +1,21 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-import logging
+
+from .core.config import get_settings
+from .core.logging import logger
 from .db import db_engine
-from . import config, routes
+from . import routes
 import asyncio
+
+
 
 
 ############### FAST API DEFINITION ###############
 
-logger = None
-settings = None
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Runs once on startup
-    global logger, settings
-    
-    settings = config.getSettings()
-    
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="[%(levelname)s] %(asctime)s %(name)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-    logger = logging.getLogger(__name__)
-
     try:
         db_engine.check_connectivity()
         logger.info("DB connection OK")
@@ -40,14 +30,10 @@ async def lifespan(app: FastAPI):
     # Runs once on shutdown
     pass
 
-
-
 app = FastAPI(lifespan=lifespan)
 app.include_router(routes.auth.router)
 app.include_router(routes.api.users.router)
 app.include_router(routes.api.notes.router)
-
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -82,10 +68,9 @@ async def middleware(request: Request, call_next):
 
 
 
-
-
 @app.get("/health")
 def health():
+    settings = get_settings()
     logger.info(f"db url: {settings.DATABASE_URL}")
     logger.info(f"service port: {settings.PORT}")
     return {
@@ -93,3 +78,8 @@ def health():
         "message": "healthy"
     }
 
+
+
+
+def some_function():
+    return 5
