@@ -51,7 +51,9 @@ GET     /api/notes      List all notes (admin only, paginated).
 
 | Task                                                  | Command |
 | ---                                                   | --- |
-| Run DB scripts (schema updates / admin access token)  | `python -m src.db.db_engine` |
+| Run tests with pytest                                 | `python -B -m pytest -s` |
+| Run particular test file                              | `python -B -m pytest -s tests/test_api.py::test_health` |
+| Run DB scripts (schema updates / admin access token)  | `python -B -m src.db.db_engine` |
 | Update dependencies after changes                     | `pip freeze > requirements.txt` |
 | Auto-generated API docs                               | `http://localhost:8123/docs` |
 
@@ -59,5 +61,5 @@ GET     /api/notes      List all notes (admin only, paginated).
 
 | Task                  | Value |
 | ---                   | --- |
-| Start Command         | `python -m uvicorn src.app:app --host 0.0.0.0 --reload --port $PORT` |
+| Start Command         | `python -B -m uvicorn src.app:app --host 0.0.0.0 --reload --port $PORT` |
 | Environment Variables | `PORT`, `DATABASE_URL` |
