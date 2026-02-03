@@ -51,6 +51,8 @@ GET     /api/notes      List all notes (admin only, paginated).
 
 | Task                                                  | Command |
 | ---                                                   | --- |
+| Run tests with pytest                                 | `python -m pytest -s` |
+| Run particular test file                              | `python -m pytest -s tests/test_api.py::test_health` |
 | Run DB scripts (schema updates / admin access token)  | `python -m src.db.db_engine` |
 | Update dependencies after changes                     | `pip freeze > requirements.txt` |
 | Auto-generated API docs                               | `http://localhost:8123/docs` |
